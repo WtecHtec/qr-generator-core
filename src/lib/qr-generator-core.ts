@@ -504,7 +504,7 @@ export const exportPreviewAsDataURL = async (
 export class QRGenerator {
   private config: QRGeneratorConfig;
   private container: HTMLDivElement | null = null;
-  private qrCode: QRCodeStyling | null = null;
+  private qrCode: any | null = null;
   private isRendered = false;
 
   constructor(config: Partial<QRGeneratorConfig>) {
@@ -631,55 +631,62 @@ export class QRGenerator {
 
   // 添加二维码 - 使用配置中的位置和尺寸
   private async addQRCode(canvas: HTMLDivElement): Promise<void> {
-    return new Promise((resolve) => {
-      // 使用配置中的二维码位置和尺寸
-      const qrX = this.config.qrPosition.x;
-      const qrY = this.config.qrPosition.y;
-      const qrWidth = this.config.qrSize.width;
-      const qrHeight = this.config.qrSize.height;
+    const QRCodeStylingClass = QRCodeStyling
+    
+    return new Promise((resolve, reject) => {
+      try {
+        // 使用配置中的二维码位置和尺寸
+        const qrX = this.config.qrPosition.x;
+        const qrY = this.config.qrPosition.y;
+        const qrWidth = this.config.qrSize.width;
+        const qrHeight = this.config.qrSize.height;
 
-      console.log(`二维码配置: 位置(${qrX}, ${qrY}), 尺寸(${qrWidth}x${qrHeight})`);
+        console.log(`二维码配置: 位置(${qrX}, ${qrY}), 尺寸(${qrWidth}x${qrHeight})`);
 
-      // 创建二维码容器
-      const qrContainer = document.createElement('div');
-      qrContainer.style.cssText = `
-        position: absolute;
-        left: ${qrX}px;
-        top: ${qrY}px;
-        width: ${qrWidth}px;
-        height: ${qrHeight}px;
-        z-index: 100;
-      `;
+        // 创建二维码容器
+        const qrContainer = document.createElement('div');
+        qrContainer.style.cssText = `
+          position: absolute;
+          left: ${qrX}px;
+          top: ${qrY}px;
+          width: ${qrWidth}px;
+          height: ${qrHeight}px;
+          z-index: 100;
+        `;
 
-      // 配置二维码样式
-      const qrConfig = {
-        width: qrWidth,
-        height: qrHeight,
-        type: 'canvas' as const,
-        data: this.config.text,
-        image: this.config.logo?.src,
-        qrOptions: this.config.qrOptions,
-        imageOptions: {
-          ...this.config.imageOptions,
-          imageSize: this.config.logo?.size ? this.config.logo.size / 100 : this.config.imageOptions.imageSize,
-        },
-        dotsOptions: this.config.dotsOptions,
-        backgroundOptions: this.config.backgroundOptions,
-        cornersSquareOptions: this.config.cornersSquareOptions,
-        cornersDotOptions: this.config.cornersDotOptions,
-      };
+        // 配置二维码样式
+        const qrConfig = {
+          width: qrWidth,
+          height: qrHeight,
+          type: 'canvas' as const,
+          data: this.config.text,
+          image: this.config.logo?.src,
+          qrOptions: this.config.qrOptions,
+          imageOptions: {
+            ...this.config.imageOptions,
+            imageSize: this.config.logo?.size ? this.config.logo.size / 100 : this.config.imageOptions.imageSize,
+          },
+          dotsOptions: this.config.dotsOptions,
+          backgroundOptions: this.config.backgroundOptions,
+          cornersSquareOptions: this.config.cornersSquareOptions,
+          cornersDotOptions: this.config.cornersDotOptions,
+        };
 
-      this.qrCode = new QRCodeStyling(qrConfig as any);
-      
-      // 渲染二维码
-      this.qrCode.append(qrContainer);
-      canvas.appendChild(qrContainer);
+        this.qrCode = new QRCodeStylingClass(qrConfig as any);
+        
+        // 渲染二维码
+        this.qrCode.append(qrContainer);
+        canvas.appendChild(qrContainer);
 
-      // 等待二维码渲染完成
-      setTimeout(() => {
-        console.log('二维码渲染完成');
-        resolve();
-      }, 500);
+        // 等待二维码渲染完成
+        setTimeout(() => {
+          console.log('二维码渲染完成');
+          resolve();
+        }, 500);
+      } catch (error) {
+        console.error('二维码创建失败:', error);
+        reject(error);
+      }
     });
   }
 

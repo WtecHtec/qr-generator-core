@@ -1,6 +1,6 @@
 import QRCodeStyling from 'qr-code-styling';
 import html2canvas from 'html2canvas';
-import type { QRConfig, ExportConfig } from '../types/qr-generator';
+import type { QRConfig } from '../types/qr-generator';
 
 // 生成二维码数据URL
 export const generateQRCode = async (config: QRConfig): Promise<string> => {
@@ -62,27 +62,6 @@ export const generateQRCode = async (config: QRConfig): Promise<string> => {
     console.error('生成二维码失败:', error);
     throw new Error('生成二维码失败');
   }
-};
-
-// 创建圆角遮罩
-const createRoundedMask = (canvas: HTMLCanvasElement, borderRadius: number): HTMLCanvasElement => {
-  const maskCanvas = document.createElement('canvas');
-  const maskCtx = maskCanvas.getContext('2d');
-  
-  if (!maskCtx) {
-    throw new Error('无法创建遮罩canvas上下文');
-  }
-
-  maskCanvas.width = canvas.width;
-  maskCanvas.height = canvas.height;
-
-  // 绘制圆角矩形遮罩
-  maskCtx.fillStyle = 'black';
-  maskCtx.beginPath();
-  maskCtx.roundRect(0, 0, canvas.width, canvas.height, borderRadius);
-  maskCtx.fill();
-
-  return maskCanvas;
 };
 
 // 应用圆角效果
