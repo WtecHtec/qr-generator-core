@@ -483,10 +483,10 @@ export const ExportSettings: React.FC<ExportSettingsProps> = ({
                 <h4 className="text-sm font-medium text-gray-700 mb-2">使用示例:</h4>
                 <div className="bg-gray-100 p-3 rounded-md text-sm font-mono">
                   <div className="text-gray-600">// 1. 安装npm包</div>
-                  <div className="text-green-600">npm install @your-username/qr-generator-core</div>
+                  <div className="text-green-600">npm install @wtechtec/qr-generator-core</div>
                   <br />
                   <div className="text-gray-600">// 2. 导入并使用</div>
-                  <div>import &#123; createQRGenerator &#125; from '@your-username/qr-generator-core';</div>
+                  <div>import &#123; createQRGenerator &#125; from '@wtechtec/qr-generator-core';</div>
                   <br />
                   <div className="text-gray-600">// 3. 使用配置初始化</div>
                   <div>const config = &#123;...&#125;; <span className="text-gray-600">// 下方配置</span></div>

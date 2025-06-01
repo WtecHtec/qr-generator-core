@@ -3,6 +3,7 @@ import { SettingsPanel } from './components/SettingsPanel';
 import { PreviewCanvas } from './components/PreviewCanvas';
 import { QRGeneratorTest } from './test/QRGeneratorTest';
 import { useQRGenerator } from './hooks/useQRGenerator';
+import { SEOHead } from './components/SEOHead';
 import './App.css';
 
 function App() {
@@ -19,56 +20,125 @@ function App() {
     qrGenerator.generateQR();
   }, [qrGenerator.config.qr]);
 
+  // 动态更新页面标题
+  useEffect(() => {
+    const content = qrGenerator.config.qr.content;
+    if (content && content !== 'Hello World') {
+      document.title = `${content} - 二维码生成器 | QR Generator`;
+    } else {
+      document.title = '二维码生成器 - 免费在线QR码制作工具 | QR Generator';
+    }
+  }, [qrGenerator.config.qr.content]);
+
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* 顶部导航 */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <h1 className="text-xl font-semibold text-gray-900">
-              二维码生成器
-            </h1>
-            <div className="flex space-x-4">
-              <button
-                onClick={() => setShowTest(!showTest)}
-                className={`px-4 py-2 rounded-lg transition-colors ${
-                  showTest 
-                    ? 'bg-red-600 text-white hover:bg-red-700' 
-                    : 'bg-green-600 text-white hover:bg-green-700'
-                }`}
-              >
-                {showTest ? '关闭测试' : '测试Core库'}
-              </button>
+    <>
+      <SEOHead />
+      <div className="min-h-screen bg-gray-100">
+        {/* 顶部导航 */}
+        <header className="bg-white shadow-sm border-b" role="banner">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              <h1 className="text-xl font-semibold text-gray-900">
+                二维码生成器
+              </h1>
+              <nav role="navigation" aria-label="主导航">
+                <div className="flex space-x-4">
+                  <button
+                    onClick={() => setShowTest(!showTest)}
+                    className={`px-4 py-2 rounded-lg transition-colors ${
+                      showTest 
+                        ? 'bg-red-600 text-white hover:bg-red-700' 
+                        : 'bg-green-600 text-white hover:bg-green-700'
+                    }`}
+                    aria-label={showTest ? '关闭测试模式' : '开启测试模式'}
+                  >
+                    {showTest ? '关闭测试' : '测试Core库'}
+                  </button>
+                </div>
+              </nav>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* 主要内容 */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {showTest ? (
-          /* 测试页面 */
-          <QRGeneratorTest />
-        ) : (
-          /* 正常应用界面 */
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* 设置面板 */}
-            <div className="lg:col-span-1">
-              <div className="bg-white rounded-lg shadow-lg max-h-screen overflow-y-auto">
-                <SettingsPanel {...qrGenerator} />
+        {/* 主要内容 */}
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" role="main">
+          {/* SEO友好的页面描述 */}
+          <div className="sr-only">
+            <h2>免费在线二维码生成器</h2>
+            <p>
+              使用我们的免费在线二维码生成器，轻松创建个性化的QR码。
+              支持文本、网址、WiFi密码等多种内容类型，可自定义颜色、样式和Logo。
+              高质量导出，适用于名片、海报、产品包装等各种场景。
+            </p>
+          </div>
+
+          {showTest ? (
+            /* 测试页面 */
+            <section aria-labelledby="test-section">
+              <h2 id="test-section" className="sr-only">测试功能</h2>
+              <QRGeneratorTest />
+            </section>
+          ) : (
+            /* 正常应用界面 */
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* 设置面板 */}
+              <aside className="lg:col-span-1" aria-labelledby="settings-section">
+                <h2 id="settings-section" className="sr-only">二维码设置</h2>
+                <div className="bg-white rounded-lg shadow-lg max-h-screen overflow-y-auto">
+                  <SettingsPanel {...qrGenerator} />
+                </div>
+              </aside>
+
+              {/* 预览区域 */}
+              <section className="lg:col-span-2" aria-labelledby="preview-section">
+                <h2 id="preview-section" className="sr-only">二维码预览</h2>
+                <div className="bg-white rounded-lg shadow-lg p-6">
+                  <PreviewCanvas {...qrGenerator} />
+                </div>
+              </section>
+            </div>
+          )}
+        </main>
+
+        {/* 页脚 */}
+        <footer className="bg-white border-t mt-16" role="contentinfo">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">关于我们</h3>
+                <p className="text-gray-600 text-sm">
+                  专业的在线二维码生成工具，为用户提供免费、高质量的QR码制作服务。
+                  支持多种内容类型和自定义样式，满足各种使用场景需求。
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">功能特色</h3>
+                <ul className="text-gray-600 text-sm space-y-2">
+                  <li>• 支持文本、网址、WiFi等多种内容</li>
+                  <li>• 自定义颜色和样式</li>
+                  <li>• 添加个性化Logo</li>
+                  <li>• 高清图片导出</li>
+                  <li>• 完全免费使用</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">使用场景</h3>
+                <ul className="text-gray-600 text-sm space-y-2">
+                  <li>• 名片和宣传材料</li>
+                  <li>• 产品包装标签</li>
+                  <li>• 活动推广海报</li>
+                  <li>• WiFi密码分享</li>
+                  <li>• 网站链接推广</li>
+                </ul>
               </div>
             </div>
-
-            {/* 预览区域 */}
-            <div className="lg:col-span-2">
-              <div className="bg-white rounded-lg shadow-lg p-6">
-                <PreviewCanvas {...qrGenerator} />
-              </div>
+            <div className="border-t pt-8 mt-8 text-center text-gray-500 text-sm">
+              <p>&copy; 2024 QR Generator. 保留所有权利。</p>
             </div>
           </div>
-        )}
-      </main>
-    </div>
+        </footer>
+      </div>
+    </>
   );
 }
 

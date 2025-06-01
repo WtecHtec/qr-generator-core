@@ -1,5 +1,7 @@
 # QR Generator Core 文档
-[en](./README_EN.md)
+[EN](./README_EN.md)
+
+[前往试试](https://qrcode.xujingyichang.top/)
 ## 概述
 
 QR Generator Core 是一个功能强大的二维码生成库，支持自定义位置、尺寸、背景图片、文本、HTML模块等高级功能。基于 `html2canvas` 和 `qr-code-styling` 构建，提供高质量的二维码生成和导出能力。
@@ -18,7 +20,7 @@ QR Generator Core 是一个功能强大的二维码生成库，支持自定义�
 ## 安装
 
 ```bash
-npm install html2canvas qr-code-styling
+npm install @wtechtec/qr-generator-core
 ```
 
 ## 基础用法
@@ -26,7 +28,7 @@ npm install html2canvas qr-code-styling
 ### 快速开始
 
 ```typescript
-import { createQRGenerator, generateQRAsPNG } from './qr-generator-core';
+import { createQRGenerator, generateQRAsPNG } from '@wtechtec/qr-generator-core';
 
 // 基础配置
 const config = {
@@ -454,7 +456,7 @@ try {
 3. **异步操作**：所有导出操作都是异步的，需要使用 `await`
 4. **配置验证**：建议在使用前进行配置验证
 5. **图片格式**：背景图片支持所有浏览器支持的格式，推荐使用PNG或JPEG
-
+6. **base64**: 需要删除内容“base64:data:” 中的 base64:
 ## 许可证
 
 MIT License
