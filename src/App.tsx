@@ -35,14 +35,43 @@ function App() {
       <SEOHead />
       <div className="min-h-screen bg-gray-100">
         {/* 顶部导航 */}
-        <header className="bg-white shadow-sm border-b" role="banner">
+       {/* 顶部导航 */}
+       <header className="bg-white shadow-sm border-b" role="banner">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               <h1 className="text-xl font-semibold text-gray-900">
                 二维码生成器
               </h1>
               <nav role="navigation" aria-label="主导航">
-                <div className="flex space-x-4">
+                <div className="flex items-center space-x-4">
+                  {/* GitHub 和 npm 跳转入口 */}
+                  <div className="flex items-center space-x-3">
+                    <a
+                      href="https://github.com/wtechtec/qr-generator-core"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center px-3 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                      aria-label="查看GitHub源码"
+                    >
+                      <svg className="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clipRule="evenodd" />
+                      </svg>
+                      GitHub
+                    </a>
+                    <a
+                      href="https://www.npmjs.com/package/@wtechtec/qr-generator-core"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center px-3 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                      aria-label="查看npm包"
+                      >
+                      <svg className="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M0 7v10h6.5v1.5h3V17H24V7H0zm6.5 6H5v-3h1.5v3zm6.5 0h-1.5v-3H10v3h-1.5V9.5H8.5v3.5H7V8h6v5zm6.5-3v3H17v-3h-1.5v3H14V8h6v2h-1.5z"/>
+                      </svg>
+                      npm
+                    </a>
+                  </div>
+                  <div className="border-l border-gray-300 h-6"></div>
                   <button
                     onClick={() => setShowTest(!showTest)}
                     className={`px-4 py-2 rounded-lg transition-colors ${

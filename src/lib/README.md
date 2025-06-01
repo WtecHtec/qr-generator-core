@@ -1,6 +1,7 @@
 # QR Generator Core 文档
-[try it.](https://qrcode.xujingyichang.top/)
+[EN](./README_EN.md)
 
+[前往试试](https://qrcode.xujingyichang.top/)
 ## 概述
 
 QR Generator Core 是一个功能强大的二维码生成库，支持自定义位置、尺寸、背景图片、文本、HTML模块等高级功能。基于 `html2canvas` 和 `qr-code-styling` 构建，提供高质量的二维码生成和导出能力。
@@ -459,3 +460,9 @@ try {
 ## 许可证
 
 MIT License
+
+
+<div align="center">
+  <p>如果这个项目对你有帮助，请给一个 ⭐️ Star！</p>
+  <p>Made with ❤️ by <a href="https://github.com/wtechtec">wtechtec</a></p>
+</div>
