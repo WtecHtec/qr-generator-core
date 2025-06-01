@@ -1,0 +1,556 @@
+import React, { useState } from 'react';
+import type { useQRGenerator } from '../../hooks/useQRGenerator';
+import type { QRGeneratorConfig } from '../../lib/qr-generator-core';
+
+interface ExportSettingsProps extends ReturnType<typeof useQRGenerator> {}
+
+export const ExportSettings: React.FC<ExportSettingsProps> = ({
+  config,
+  updateExportConfig,
+  exportImage,
+  isExporting,
+}) => {
+  const [showConfigModal, setShowConfigModal] = useState(false);
+  const [configString, setConfigString] = useState('');
+
+  // 圆角预设
+  const borderRadiusPresets = [
+    { label: '无圆角', value: 0 },
+    { label: '小圆角', value: 8 },
+    { label: '中圆角', value: 16 },
+    { label: '大圆角', value: 24 },
+    { label: '超大圆角', value: 32 },
+    { label: '胶囊形', value: Math.min(config.export.width, config.export.height) / 2 },
+  ];
+
+  // 预设尺寸选项
+  const presetSizes = [
+    { name: '正方形 - 小', width: 400, height: 400 },
+    { name: '正方形 - 中', width: 600, height: 600 },
+    { name: '正方形 - 大', width: 800, height: 800 },
+    { name: '横版 - 16:9', width: 800, height: 450 },
+    { name: '横版 - 4:3', width: 800, height: 600 },
+    { name: '竖版 - 9:16', width: 450, height: 800 },
+    { name: '竖版 - 3:4', width: 600, height: 800 },
+    { name: 'A4纸张', width: 794, height: 1123 },
+    { name: '名片', width: 350, height: 200 },
+    { name: '海报', width: 1080, height: 1920 },
+  ];
+
+  // 生成配置字符串
+  const generateConfigString = () => {
+    // 转换当前配置为npm包格式
+    const npmConfig: Partial<QRGeneratorConfig> = {
+      text: config.qr.content,
+      width: config.export.width,
+      height: config.export.height,
+      qrPosition: config.qr.position,
+      qrSize: { width: config.qr.size, height: config.qr.size },
+      qrOptions: {
+        typeNumber: 0,
+        mode: 'Byte',
+        errorCorrectionLevel: config.qr.qrOptions.errorCorrectionLevel,
+      },
+      imageOptions: {
+        hideBackgroundDots: true,
+        imageSize: 0.4,
+        margin: config.qr.margin,
+        crossOrigin: 'anonymous',
+      },
+      dotsOptions: {
+        color: config.qr.dotsOptions.color,
+        type: config.qr.dotsOptions.type,
+        ...(config.qr?.dotsOptions?.gradient && {
+          gradient: config.qr.dotsOptions.gradient,
+        }),
+      },
+      backgroundOptions: {
+        color: config.qr.backgroundOptions.color,
+        ...(config.qr.backgroundOptions?.gradient && {
+          gradient: config.qr.backgroundOptions.gradient,
+        }),
+      },
+      cornersSquareOptions: {
+        color: config.qr.cornersSquareOptions.color,
+        type: config.qr.cornersSquareOptions.type,
+        ...(config.qr.cornersSquareOptions.gradient && {
+          gradient: config.qr.cornersSquareOptions.gradient,
+        }),
+      },
+      cornersDotOptions: {
+        color: config.qr.cornersDotOptions.color,
+        type: config.qr.cornersDotOptions.type,
+        ...(config.qr.cornersDotOptions.gradient && {
+          gradient: config.qr.cornersDotOptions.gradient,
+        }),
+      },
+      ...(config.qr.logo && {
+        logo: {
+          src: config.qr.logo.src.startsWith('data:') 
+            ? `base64:${config.qr.logo.src}` 
+            : config.qr.logo.src,
+          size: config.qr.logo.size,
+        },
+      }),
+      exportOptions: {
+        format: 'png',
+        quality: config.export.quality,
+        borderRadius: config.export.borderRadius,
+      },
+    };
+
+    // 添加背景图片配置（如果有的话）
+    if (config.backgrounds.length > 0) {
+      npmConfig.backgrounds = config.backgrounds.map(bg => ({
+        src: bg.src.startsWith('data:') ? `base64:${bg.src}` : bg.src,
+        position: bg.position,
+        size: bg.size,
+        mode: bg.mode,
+        zIndex: bg.zIndex,
+        opacity: bg.opacity,
+      }));
+    }
+
+    // 添加文本图层配置（如果有的话）
+    if (config.texts.length > 0) {
+      npmConfig.texts = config.texts.map(text => ({
+        content: text.content,
+        position: text.position,
+        fontSize: text.fontSize,
+        color: text.color,
+        fontFamily: text.fontFamily,
+        fontWeight: text.fontWeight,
+        zIndex: text.zIndex,
+        opacity: text.opacity,
+      }));
+    }
+
+    // 添加HTML模块配置（如果有的话）
+    if (config.htmlModules.length > 0) {
+      npmConfig.htmlModules = config.htmlModules.map(module => ({
+        content: module.content,
+        position: module.position,
+        size: module.size,
+        zIndex: module.zIndex,
+        opacity: module.opacity,
+      }));
+    }
+
+    return JSON.stringify(npmConfig, null, 2);
+  };
+
+  const handleExportConfig = () => {
+    const configStr = generateConfigString();
+    setConfigString(configStr);
+    setShowConfigModal(true);
+  };
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(configString);
+      alert('配置已复制到剪贴板！');
+    } catch (err) {
+      console.error('复制失败:', err);
+      // 降级方案
+      const textArea = document.createElement('textarea');
+      textArea.value = configString;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      alert('配置已复制到剪贴板！');
+    }
+  };
+
+  const downloadConfig = () => {
+    const blob = new Blob([configString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `qr-config-${Date.now()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const handlePresetSize = (width: number, height: number) => {
+    updateExportConfig({ width, height });
+  };
+
+  const handleCustomSize = (dimension: 'width' | 'height', value: string) => {
+    const numValue = parseInt(value) || 0;
+    if (numValue > 0 && numValue <= 4000) {
+      updateExportConfig({ [dimension]: numValue });
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      {/* 当前尺寸显示 */}
+      <div className="p-3 bg-blue-50 rounded-lg">
+        <div className="text-sm font-medium text-blue-900 mb-1">当前画布尺寸</div>
+        <div className="text-lg font-bold text-blue-700">
+          {config.export.width} × {config.export.height} 像素
+        </div>
+        <div className="text-xs text-blue-600">
+          比例: {(config.export.width / config.export.height).toFixed(2)}:1
+        </div>
+      </div>
+
+      {/* 预设尺寸 */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          预设尺寸
+        </label>
+        <div className="grid grid-cols-1 gap-2 max-h-48 overflow-y-auto">
+          {presetSizes.map((preset, index) => (
+            <button
+              key={index}
+              onClick={() => handlePresetSize(preset.width, preset.height)}
+              className={`px-3 py-2 text-sm text-left rounded-md border transition-colors ${
+                config.export.width === preset.width && config.export.height === preset.height
+                  ? 'bg-blue-100 border-blue-300 text-blue-700'
+                  : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              <div className="font-medium">{preset.name}</div>
+              <div className="text-xs text-gray-500">
+                {preset.width} × {preset.height}
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* 自定义尺寸 */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          自定义尺寸
+        </label>
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1">
+              宽度 (px)
+            </label>
+            <input
+              type="number"
+              min="100"
+              max="4000"
+              value={config.export.width}
+              onChange={(e) => handleCustomSize('width', e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1">
+              高度 (px)
+            </label>
+            <input
+              type="number"
+              min="100"
+              max="4000"
+              value={config.export.height}
+              onChange={(e) => handleCustomSize('height', e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* 快速比例调整 */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          快速比例
+        </label>
+        <div className="grid grid-cols-3 gap-2">
+          <button
+            onClick={() => {
+              const size = Math.min(config.export.width, config.export.height);
+              updateExportConfig({ width: size, height: size });
+            }}
+            className="px-3 py-2 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
+          >
+            1:1
+          </button>
+          <button
+            onClick={() => {
+              const height = Math.round(config.export.width * 9 / 16);
+              updateExportConfig({ height });
+            }}
+            className="px-3 py-2 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
+          >
+            16:9
+          </button>
+          <button
+            onClick={() => {
+              const height = Math.round(config.export.width * 3 / 4);
+              updateExportConfig({ height });
+            }}
+            className="px-3 py-2 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
+          >
+            4:3
+          </button>
+        </div>
+      </div>
+
+      {/* 圆角设置 */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-3">
+          圆角样式
+        </label>
+        
+        {/* 圆角预设 */}
+        <div className="grid grid-cols-2 gap-2 mb-3">
+          {borderRadiusPresets.map((preset) => (
+            <button
+              key={preset.label}
+              onClick={() => updateExportConfig({ borderRadius: preset.value })}
+              className={`px-3 py-2 text-sm rounded-md border transition-colors ${
+                config.export.borderRadius === preset.value
+                  ? 'bg-blue-100 border-blue-300 text-blue-700'
+                  : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              {preset.label}
+            </button>
+          ))}
+        </div>
+
+        {/* 自定义圆角 */}
+        <div>
+          <label className="block text-sm text-gray-600 mb-2">
+            自定义圆角: {config.export.borderRadius}px
+          </label>
+          <input
+            type="range"
+            min="0"
+            max={Math.min(config.export.width, config.export.height) / 2}
+            value={config.export.borderRadius}
+            onChange={(e) => updateExportConfig({ borderRadius: parseInt(e.target.value) })}
+            className="w-full"
+          />
+        </div>
+      </div>
+
+      {/* 图片质量 */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          图片质量: {Math.round(config.export.quality * 100)}%
+        </label>
+        <input
+          type="range"
+          min="0.1"
+          max="1"
+          step="0.1"
+          value={config.export.quality}
+          onChange={(e) => updateExportConfig({ quality: parseFloat(e.target.value) })}
+          className="w-full"
+        />
+        <div className="flex justify-between text-xs text-gray-500 mt-1">
+          <span>低质量</span>
+          <span>高质量</span>
+        </div>
+      </div>
+
+      {/* 导出格式 */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          导出格式
+        </label>
+        <div className="grid grid-cols-2 gap-2">
+          <button
+            onClick={() => updateExportConfig({ format: 'png' })}
+            className={`px-3 py-2 text-sm rounded-md border transition-colors ${
+              config.export.format === 'png'
+                ? 'bg-blue-100 border-blue-300 text-blue-700'
+                : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
+            }`}
+          >
+            PNG
+            <div className="text-xs text-gray-500">支持透明背景</div>
+          </button>
+          <button
+            onClick={() => updateExportConfig({ format: 'jpg' })}
+            className={`px-3 py-2 text-sm rounded-md border transition-colors ${
+              config.export.format === 'jpg'
+                ? 'bg-blue-100 border-blue-300 text-blue-700'
+                : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
+            }`}
+          >
+            JPG
+            <div className="text-xs text-gray-500">文件更小</div>
+          </button>
+        </div>
+      </div>
+
+      {/* 文件大小预估 */}
+      <div className="p-3 bg-gray-50 rounded-lg">
+        <div className="text-sm font-medium text-gray-700 mb-1">预估文件大小</div>
+        <div className="text-xs text-gray-600">
+          {(() => {
+            const pixels = config.export.width * config.export.height;
+            const bytesPerPixel = config.export.format === 'png' ? 4 : 3;
+            const estimatedBytes = pixels * bytesPerPixel * config.export.quality;
+            const kb = estimatedBytes / 1024;
+            const mb = kb / 1024;
+            
+            if (mb > 1) {
+              return `约 ${mb.toFixed(1)} MB`;
+            } else {
+              return `约 ${kb.toFixed(0)} KB`;
+            }
+          })()}
+        </div>
+      </div>
+
+      {/* 导出按钮组 */}
+      <div className="space-y-3 pt-4 border-t">
+        <button
+          onClick={exportImage}
+          disabled={isExporting}
+          className="w-full px-4 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+        >
+          {isExporting ? (
+            <div className="flex items-center justify-center">
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+              导出中...
+            </div>
+          ) : (
+            `导出 ${config.export.format.toUpperCase()} 图片`
+          )}
+        </button>
+
+        <button
+          onClick={handleExportConfig}
+          className="w-full px-4 py-3 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors font-medium flex items-center justify-center space-x-2"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+          <span>获取配置参数</span>
+        </button>
+      </div>
+
+      {/* 配置模态框 */}
+      {showConfigModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-9999 p-4">
+          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            <div className="p-6 border-b">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-gray-900">
+                  QR生成器配置参数
+                </h3>
+                <button
+                  onClick={() => setShowConfigModal(false)}
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <p className="text-sm text-gray-600 mt-2">
+                以下配置可用于npm包初始化，包含当前所有设置（二维码样式、背景图片、文本图层、HTML模块等）
+              </p>
+            </div>
+
+            <div className="p-6 overflow-y-auto max-h-[60vh]">
+              {/* 配置统计 */}
+              <div className="mb-4 p-3 bg-blue-50 rounded-lg">
+                <h4 className="text-sm font-medium text-blue-900 mb-2">配置统计:</h4>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                  <div>
+                    <div className="text-blue-600">画布尺寸</div>
+                    <div className="font-medium">{config.export.width}×{config.export.height}</div>
+                  </div>
+                  <div>
+                    <div className="text-blue-600">背景图片</div>
+                    <div className="font-medium">{config.backgrounds.length} 个</div>
+                  </div>
+                  <div>
+                    <div className="text-blue-600">文本图层</div>
+                    <div className="font-medium">{config.texts.length} 个</div>
+                  </div>
+                  <div>
+                    <div className="text-blue-600">HTML模块</div>
+                    <div className="font-medium">{config.htmlModules.length} 个</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <h4 className="text-sm font-medium text-gray-700 mb-2">使用示例:</h4>
+                <div className="bg-gray-100 p-3 rounded-md text-sm font-mono">
+                  <div className="text-gray-600">// 1. 安装npm包</div>
+                  <div className="text-green-600">npm install @your-username/qr-generator-core</div>
+                  <br />
+                  <div className="text-gray-600">// 2. 导入并使用</div>
+                  <div>import &#123; createQRGenerator &#125; from '@your-username/qr-generator-core';</div>
+                  <br />
+                  <div className="text-gray-600">// 3. 使用配置初始化</div>
+                  <div>const config = &#123;...&#125;; <span className="text-gray-600">// 下方配置</span></div>
+                  <div>const generator = createQRGenerator(config);</div>
+                  <br />
+                  <div className="text-gray-600">// 4. 渲染到页面</div>
+                  <div>const container = document.getElementById('qr-container');</div>
+                  <div>await generator.renderTo(container);</div>
+                  <br />
+                  <div className="text-gray-600">// 5. 导出图片</div>
+                  <div>const blob = await generator.exportAsPNG();</div>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-sm font-medium text-gray-700 mb-2">配置参数:</h4>
+                <textarea
+                  value={configString}
+                  readOnly
+                  className="w-full h-96 p-3 border border-gray-300 rounded-md font-mono text-sm bg-gray-50 resize-none"
+                  placeholder="配置生成中..."
+                />
+              </div>
+            </div>
+
+            <div className="p-6 border-t bg-gray-50 flex flex-wrap gap-3">
+              <button
+                onClick={copyToClipboard}
+                className="flex-1 min-w-[120px] px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                <span>复制配置</span>
+              </button>
+              <button
+                onClick={downloadConfig}
+                className="flex-1 min-w-[120px] px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors flex items-center justify-center space-x-2"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span>下载配置</span>
+              </button>
+              <button
+                onClick={() => setShowConfigModal(false)}
+                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors"
+              >
+                关闭
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 使用说明 */}
+      <div className="text-xs text-gray-500 space-y-1 pt-4 border-t">
+        <div className="font-medium">功能说明:</div>
+        <div>• 导出PNG支持透明背景和圆角效果</div>
+        <div>• 配置参数包含所有当前设置和图层</div>
+        <div>• Base64图片会保持原始格式便于使用</div>
+        <div>• 支持一键复制或下载配置文件</div>
+        <div>• 可直接用于npm包初始化</div>
+      </div>
+    </div>
+  );
+};
