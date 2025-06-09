@@ -1,12 +1,221 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- 主页 - 二维码生成器首页 -->
   <url>
-    <loc>https://your-domain.com/</loc>
-    <lastmod>2024-01-01</lastmod>
+    <loc>https://xujingyichang.top/</loc>
+    <lastmod>2024-12-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://your-domain.com/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://your-domain.com/en/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/" />
+    <image:image>
+      <image:loc>https://xujingyichang.top/og-image.png</image:loc>
+      <image:title>免费在线二维码生成器</image:title>
+      <image:caption>专业的QR码制作工具，支持自定义样式和Logo</image:caption>
+    </image:image>
   </url>
-</urlset> 
+
+  <!-- 文本二维码生成页面 -->
+  <url>
+    <loc>https://xujingyichang.top/text-qr</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/text-qr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/text-qr" />
+  </url>
+
+  <!-- URL二维码生成页面 -->
+  <url>
+    <loc>https://xujingyichang.top/url-qr</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/url-qr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/url-qr" />
+  </url>
+
+  <!-- WiFi二维码生成页面 -->
+  <url>
+    <loc>https://xujingyichang.top/wifi-qr</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/wifi-qr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/wifi-qr" />
+  </url>
+
+  <!-- 联系人二维码生成页面 -->
+  <url>
+    <loc>https://xujingyichang.top/contact-qr</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/contact-qr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/contact-qr" />
+  </url>
+
+  <!-- 邮件二维码生成页面 -->
+  <url>
+    <loc>https://xujingyichang.top/email-qr</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/email-qr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/email-qr" />
+  </url>
+
+  <!-- 短信二维码生成页面 -->
+  <url>
+    <loc>https://xujingyichang.top/sms-qr</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/sms-qr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/sms-qr" />
+  </url>
+
+  <!-- 电话二维码生成页面 -->
+  <url>
+    <loc>https://xujingyichang.top/phone-qr</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/phone-qr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/phone-qr" />
+  </url>
+
+  <!-- 地理位置二维码生成页面 -->
+  <url>
+    <loc>https://xujingyichang.top/location-qr</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/location-qr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/location-qr" />
+  </url>
+
+  <!-- 社交媒体二维码生成页面 -->
+  <url>
+    <loc>https://xujingyichang.top/social-qr</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/social-qr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/social-qr" />
+  </url>
+
+  <!-- 使用教程页面 -->
+  <url>
+    <loc>https://xujingyichang.top/tutorial</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/tutorial" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/tutorial" />
+  </url>
+
+  <!-- API文档页面 -->
+  <url>
+    <loc>https://xujingyichang.top/api-docs</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/api-docs" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/api-docs" />
+  </url>
+
+  <!-- 常见问题页面 -->
+  <url>
+    <loc>https://xujingyichang.top/faq</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/faq" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/faq" />
+  </url>
+
+  <!-- 隐私政策页面 -->
+  <url>
+    <loc>https://xujingyichang.top/privacy</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/privacy" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/privacy" />
+  </url>
+
+  <!-- 服务条款页面 -->
+  <url>
+    <loc>https://xujingyichang.top/terms</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/terms" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/terms" />
+  </url>
+
+  <!-- 关于我们页面 -->
+  <url>
+    <loc>https://xujingyichang.top/about</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>quarterly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/about" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/about" />
+  </url>
+
+  <!-- 联系我们页面 -->
+  <url>
+    <loc>https://xujingyichang.top/contact</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>quarterly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/contact" />
+  </url>
+
+  <!-- 博客/文章页面 -->
+  <url>
+    <loc>https://xujingyichang.top/blog</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/blog" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/blog" />
+  </url>
+
+  <!-- 二维码样式模板页面 -->
+  <url>
+    <loc>https://xujingyichang.top/templates</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/templates" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/templates" />
+  </url>
+
+  <!-- 批量生成页面 -->
+  <url>
+    <loc>https://xujingyichang.top/batch</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/batch" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/batch" />
+  </url>
+
+  <!-- 英文版本页面 -->
+  <url>
+    <loc>https://xujingyichang.top/en/</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://xujingyichang.top/en/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://xujingyichang.top/" />
+  </url>
+
+</urlset>
