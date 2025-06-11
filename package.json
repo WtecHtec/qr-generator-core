@@ -13,10 +13,13 @@
     "next:start": "next start",
     "next:lint": "next lint",
     "pages:build": "npx @cloudflare/next-on-pages",
-   "pages:deploy": "pnpm run next:build && wrangler pages deploy out --project-name=qr-generator-core"
+    "pages:deploy": "pnpm run next:build && wrangler pages deploy out --project-name=qr-generator-core",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+  
   },
   "dependencies": {
     "@cloudflare/next-on-pages": "^1.13.12",
+    "@opennextjs/cloudflare": "^1.2.1",
     "@tailwindcss/postcss": "^4.1.8",
     "@types/qrcode": "^1.5.5",
     "html2canvas": "^1.4.1",
