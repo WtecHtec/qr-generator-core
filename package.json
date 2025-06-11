@@ -12,7 +12,7 @@
     "next:build": "next build --no-lint",
     "next:start": "next start",
     "next:lint": "next lint",
-    "pages:build": "npx @cloudflare/next-on-pages --no-lint",
+    "pages:build": "npx @cloudflare/next-on-pages",
     "pages:deploy": "npm run pages:build && wrangler pages deploy"
   },
   "dependencies": {
