@@ -12,14 +12,21 @@ function App() {
   const [showTest, setShowTest] = useState(false);
 
   // 初始生成二维码
-  useEffect(() => {
+  // useEffect(() => {
+  //   qrGenerator.generateQR();
+  // }, []);
+
+  // 当配置变化时重新生成二维码
+   // 初始生成二维码
+   useEffect(() => {
     qrGenerator.generateQR();
-  }, []);
+  }, [qrGenerator.generateQR]); // 添加依赖
 
   // 当配置变化时重新生成二维码
   useEffect(() => {
     qrGenerator.generateQR();
-  }, [qrGenerator.config.qr]);
+  }, [qrGenerator.config.qr, qrGenerator.generateQR]); // 添加依赖
+
 
   // 动态更新页面标题
   useEffect(() => {

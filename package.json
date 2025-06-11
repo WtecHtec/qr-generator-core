@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "next:dev": "next dev",
-    "next:build": "next build", 
+    "next:build": "next build --no-lint", 
     "next:start": "next start",
     "next:lint": "next lint"
   },

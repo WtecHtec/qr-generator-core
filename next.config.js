@@ -11,16 +11,16 @@ const nextConfig = {
     return 'qr-generator-' + Date.now()
   },
   // 静态导出（如果需要）
-  output: 'export',
+  // output: 'export',
   trailingSlash: true,
   // 压缩优化
   compress: true,
-  // PWA支持
-  pwa: {
-    dest: 'public',
-    register: true,
-    skipWaiting: true,
-  }
+  // // PWA支持
+  // pwa: {
+  //   dest: 'public',
+  //   register: true,
+  //   skipWaiting: true,
+  // }
 }
 
 // module.exports = nextConfig 
