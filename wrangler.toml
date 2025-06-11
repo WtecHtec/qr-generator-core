@@ -1,0 +1,6 @@
+name = "qr-generator-core"
+compatibility_date = "2025-05-11"
+compatibility_flags = ["nodejs_compat"]
+
+[[pages_build_output_dir]]
+assets = "./out"
