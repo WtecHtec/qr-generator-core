@@ -1,3 +1,4 @@
+"use client"
 import { useState, useEffect } from 'react';
 import { SettingsPanel } from './components/SettingsPanel';
 import { PreviewCanvas } from './components/PreviewCanvas';

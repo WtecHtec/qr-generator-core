@@ -7,12 +7,17 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "next:dev": "next dev",
+    "next:build": "next build", 
+    "next:start": "next start",
+    "next:lint": "next lint"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.8",
     "@types/qrcode": "^1.5.5",
     "html2canvas": "^1.4.1",
+    "next": "^15.3.3",
     "qr-code-styling": "^1.9.2",
     "qrcode": "^1.5.4",
     "react": "^19.1.0",
@@ -22,6 +27,7 @@
   "devDependencies": {
     "@eslint/js": "^9.25.0",
     "@tailwindcss/forms": "^0.5.10",
+    "@types/node": "^24.0.0",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
