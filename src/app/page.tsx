@@ -1,4 +1,4 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import QRGeneratorApp from '../App'
 import '../index.css'
 export const metadata: Metadata = {

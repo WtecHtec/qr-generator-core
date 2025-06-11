@@ -1,0 +1,4 @@
+name = "qrcode-app"
+compatibility_date = "2025-06-11"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".vercel/output/static"
