@@ -9,11 +9,14 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "next:dev": "next dev",
-    "next:build": "next build --no-lint", 
+    "next:build": "next build --no-lint",
     "next:start": "next start",
-    "next:lint": "next lint"
+    "next:lint": "next lint",
+    "pages:build": "npx @cloudflare/next-on-pages --no-lint",
+    "pages:deploy": "npm run pages:build && wrangler pages deploy"
   },
   "dependencies": {
+    "@cloudflare/next-on-pages": "^1.13.12",
     "@tailwindcss/postcss": "^4.1.8",
     "@types/qrcode": "^1.5.5",
     "html2canvas": "^1.4.1",
