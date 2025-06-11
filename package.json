@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "next build --no-lint",
     "lint": "eslint .",
     "preview": "vite preview",
     "next:dev": "next dev",
@@ -14,7 +14,7 @@
     "next:lint": "next lint",
     "pages:build": "npx @cloudflare/next-on-pages",
     "pages:deploy": "pnpm run next:build && wrangler pages deploy out --project-name=qr-generator-core",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy"
   
   },
   "dependencies": {
