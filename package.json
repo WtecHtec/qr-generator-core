@@ -13,7 +13,7 @@
     "next:start": "next start",
     "next:lint": "next lint",
     "pages:build": "npx @cloudflare/next-on-pages",
-   "pages:deploy": "pnpm run next:build && wrangler pages deploy .vercel/output/static"
+   "pages:deploy": "pnpm run next:build && wrangler pages deploy .vercel/output/static --project-name=qr-generator-core"
   },
   "dependencies": {
     "@cloudflare/next-on-pages": "^1.13.12",
