@@ -14,20 +14,6 @@ export const metadata: Metadata = {
   authors: [{ name: 'Ruk' }],
   creator: 'Ruk',
   publisher: 'Ruk',
-  // 添加图标配置
-  icons: {
-    icon: [
-      {
-        url: '/favicon.svg',
-        type: 'image/svg+xml',
-      },
-      {
-        url: '/favicon.ico',
-        sizes: '32x32',
-        type: 'image/x-icon',
-      }
-    ],
-  },
   robots: {
     index: true,
     follow: true,
@@ -81,7 +67,17 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <head>
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+      
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        
+        
+
+      <link rel="icon" href="/favicon.ico" sizes="any" />
+      <link rel="icon" href="/vite.svg" type="image/svg+xml" />
+      <link rel="apple-touch-icon" href="/favicon.ico" />
+
         {/* Google Analytics */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSK98R13Z4"></script>
         <script

@@ -6,7 +6,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'iam.xujingyichang.top'],
   },
   // 完全跳过 TypeScript 和 ESLint 检查
   typescript: {
@@ -32,6 +32,32 @@ const nextConfig = {
       esmExternals: false,
     },
 
+    async headers() {
+      return [
+        {
+          // 匹配所有路径
+          source: '/(.*)',
+          headers: [
+            {
+              key: 'X-Robots-Tag',
+              value: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+            },
+            {
+              key: 'X-Content-Type-Options',
+              value: 'nosniff',
+            },
+            {
+              key: 'X-Frame-Options',
+              value: 'DENY',
+            },
+            {
+              key: 'X-XSS-Protection',
+              value: '1; mode=block',
+            },
+          ],
+        },
+      ]
+    },
   // // PWA支持
   // pwa: {
   //   dest: 'public',
