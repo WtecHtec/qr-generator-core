@@ -3,7 +3,7 @@ import QRGeneratorApp from '../App'
 import '../index.css'
 export const metadata: Metadata = {
   title: '二维码生成器 - 免费在线QR码制作工具',
-  description: '免费在线二维码生成器，支持文本、网址、WiFi密码等多种内容。可自定义样式、颜色、Logo，支持高清导出。',
+  description: '免费在线二维码生成器，支持文本、网址、WiFi密码等多种内容。可自定义样式、颜色、Logo，支持高清导出。一站式二维码生成工具，免费可用。提供编码解码、数据统计、富文本和多媒体展示、表单制作、美化标签、批量管理等功能，并可作为无代码平台，搭建二维码信息系统。',
   alternates: {
     canonical: 'https://xujingyichang.top',
   },
@@ -19,7 +19,7 @@ const jsonLd = {
       name: '如何生成二维码？',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: '在输入框中输入您要生成二维码的内容，选择样式和颜色，点击生成即可。支持文本、网址、WiFi密码等多种内容类型。'
+        text: '在输入框中输入您要生成二维码的内容，选择样式和颜色，点击生成即可。支持文本、网址、WiFi密码等多种内容类型。一站式二维码生成工具，免费可用。提供编码解码、数据统计、富文本和多媒体展示、表单制作、美化标签、批量管理等功能，并可作为无代码平台，搭建二维码信息系统。'
       }
     },
     {

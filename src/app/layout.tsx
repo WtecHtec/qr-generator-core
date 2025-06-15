@@ -14,6 +14,20 @@ export const metadata: Metadata = {
   authors: [{ name: 'Ruk' }],
   creator: 'Ruk',
   publisher: 'Ruk',
+  // 添加图标配置
+  icons: {
+    icon: [
+      {
+        url: '/favicon.svg',
+        type: 'image/svg+xml',
+      },
+      {
+        url: '/favicon.ico',
+        sizes: '32x32',
+        type: 'image/x-icon',
+      }
+    ],
+  },
   robots: {
     index: true,
     follow: true,
