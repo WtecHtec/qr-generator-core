@@ -81,6 +81,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <head>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         {/* Google Analytics */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSK98R13Z4"></script>
         <script
