@@ -1,87 +1,21 @@
-
 [
-    {
-      "category": "开发工具",
-      "description": "程序员日常开发必备工具和资源。",
-      "links": [
-        {
-          "name": "GitHub Trending",
-          "url": "https://github.com/trending",
-          "icon": "FaGithub"
-        },
-        {
-          "name": "MDN Web Docs",
-          "url": "https://developer.mozilla.org/zh-CN/",
-          "icon": "FaCode"
-        },
-        {
-          "name": "Vercel",
-          "url": "https://vercel.com/",
-          "icon": "FaCloud"
-        },
-        {
-          "name": "Stack Overflow",
-          "url": "https://stackoverflow.com/",
-          "icon": "FaQuestionCircle"
-        }
-      ]
-    },
-    {
-      "category": "设计资源",
-      "description": "设计师寻找灵感和素材的好去处。",
-      "links": [
-        {
-          "name": "Unsplash",
-          "url": "https://unsplash.com/",
-          "icon": "FaImage"
-        },
-        {
-          "name": "Figma",
-          "url": "https://www.figma.com/",
-          "icon": "FaPaintBrush"
-        },
-        {
-          "name": "Dribbble",
-          "url": "https://dribbble.com/",
-          "icon": "FaPalette"
-        }
-      ]
-    },
-    {
-      "category": "学习提升",
-      "description": "扩展知识，持续学习的精选网站。",
-      "links": [
-        {
-          "name": "Coursera",
-          "url": "https://www.coursera.org/",
-          "icon": "FaGraduationCap"
-        },
-        {
-        "name": "Khan Academy",
-          "url": "https://www.khanacademy.org/",
-          "icon": "FaBook"
-        },
-        {
-          "name": "LeetCode",
-          "url": "https://leetcode.com/",
-          "icon": "FaTrophy"
-        }
-      ]
-    },
-    {
-      "category": "趣味休闲",
-      "description": "放松身心，发现生活乐趣。",
-      "links": [
-        {
-          "name": "Bilibili",
-          "url": "https://www.bilibili.com/",
-          "icon": "FaPlayCircle"
-        },
-        {
-          "name": "知乎",
-          "url": "https://www.zhihu.com/",
-          "icon": "FaComments"
-        }
-      ]
-    }
-  ]
+  {
+    "category": "实用工具",
+    "description": "日常工作和生活中的必备工具。",
+    "links": [
+      {
+        "name": "今日热点",
+        "url": "https://newsnow.busiyi.world/",
+        "icon": "FaHotjar",
+        "reason": "可以随时查看各个平台热点内容,包含知乎、微博等"
+      },
+      {
+        "name": "在线白板绘图",
+        "url": "https://excalidraw.com/",
+        "icon": "FaHotjar",
+        "reason": "极简操作"
+      }
+      
+    ]
+  }
+]

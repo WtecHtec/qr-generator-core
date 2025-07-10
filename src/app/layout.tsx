@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   },
   description: '免费在线二维码生成器，支持文本、网址、WiFi密码等多种内容。可自定义样式、颜色、Logo，支持高清导出。简单易用的QR码制作工具。一站式二维码生成工具，免费可用。提供编码解码、数据统计、富文本和多媒体展示、表单制作、美化标签、批量管理等功能，并可作为无代码平台，搭建二维码信息系统。',
   keywords: ['二维码生成器', 'QR码生成', '二维码制作', '在线二维码', '免费二维码', '二维码生成器', '二维码', '二维码图片', '二维码生成', '二维码扫描', '二维码美化', '二维码印刷', '批量生成二维码', '一物一码', '微信二维码'],
-  authors: [{ name: 'Ruk' }],
+  authors: [{ name: '虚惊一场' }],
   creator: 'Ruk',
   publisher: 'Ruk',
   robots: {
@@ -118,7 +118,7 @@ export default function RootLayout({
               },
               "author": {
                 "@type": "Organization",
-                "name": "Ruk"
+                "name": "虚惊一场"
               }
             })
           }}

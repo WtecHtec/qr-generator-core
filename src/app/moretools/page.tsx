@@ -1,21 +1,18 @@
-// src/app/daily-link/page.tsx
+// src/app/moretools/page.tsx
 'use client';
 
-import React, { useState, useEffect, createElement } from 'react'; // Import createElement
+import React, { useState, useEffect, createElement } from 'react';
 import Link from 'next/link';
-import { SEOHead }  from '../../components/SEOHead';
-import "../../index.css"
-// 导入所有可能用到的 React Icons 组件
-// 重要的是，你需要在这里导入所有你可能在 JSON 中引用的图标
-import * as FaIcons from 'react-icons/fa'; // 导入整个 Font Awesome 库
-// import * as MdIcons from 'react-icons/md'; // 如果你也想用 Material Design Icons
-// import * as HiIcons from 'react-icons/hi'; // 如果你也想用 Heroicons
+import { SEOHead } from '../../components/SEOHead';
+import "../../index.css";
 
-// 定义 types
+import * as FaIcons from 'react-icons/fa';
+
 interface LinkItem {
   name: string;
   url: string;
-  icon?: string; // 这个字段将直接对应 React Icons 的组件名称字符串，如 "FaGithub"
+  icon?: string;
+  reason?: string; // Add a new field for the recommendation reason
 }
 
 interface LinkCategory {
@@ -48,22 +45,18 @@ const DailyLinkPage = () => {
     fetchCategorizedLinks();
   }, []);
 
-  // 动态渲染图标的函数
   const renderIconComponent = (iconName?: string) => {
     if (!iconName) {
-      return <FaIcons.FaExternalLinkAlt />; // 默认图标
+      return <FaIcons.FaExternalLinkAlt />;
     }
 
-    // 尝试从 FaIcons 中查找对应的组件
     const IconComponent = (FaIcons as any)[iconName];
-    // 如果 FaIcons 中没有，可以尝试从其他导入的库中查找
-    // const IconComponent = (FaIcons as any)[iconName] || (MdIcons as any)[iconName] || (HiIcons as any)[iconName];
 
     if (IconComponent) {
       return createElement(IconComponent);
     }
 
-    return <FaIcons.FaExternalLinkAlt />; // 如果找不到，返回默认图标
+    return <FaIcons.FaExternalLinkAlt />;
   };
 
   return (
@@ -108,23 +101,30 @@ const DailyLinkPage = () => {
                             href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center p-4 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 group"
+                            className="flex flex-col p-4 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 group"
                             aria-label={`访问 ${link.name}`}
                           >
-                            <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 mr-4">
-                              {renderIconComponent(link.icon)} {/* 直接渲染图标 */}
+                            <div className="flex items-center mb-2">
+                              <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 mr-4">
+                                {renderIconComponent(link.icon)}
+                              </div>
+                              <div className="flex-grow">
+                                <p className="text-gray-900 font-medium group-hover:text-blue-600">
+                                  {link.name}
+                                </p>
+                                <p className="text-gray-500 text-xs truncate group-hover:text-blue-500">
+                                  {link.url.replace(/(^\w+:|^)\/\//, '').split('/')[0]}
+                                </p>
+                              </div>
+                              <svg className="w-5 h-5 text-gray-400 group-hover:text-blue-600 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7m7-7v6"></path>
+                              </svg>
                             </div>
-                            <div className="flex-grow">
-                              <p className="text-gray-900 font-medium group-hover:text-blue-600">
-                                {link.name}
+                            {link.reason && ( // Conditionally render the recommendation reason
+                              <p className="text-sm text-gray-700 bg-blue-50 px-3 py-2 rounded-md border border-blue-200 mt-2">
+                                <span className="font-semibold text-blue-800">推荐理由：</span>{link.reason}
                               </p>
-                              <p className="text-gray-500 text-xs truncate group-hover:text-blue-500">
-                                {link.url.replace(/(^\w+:|^)\/\//, '').split('/')[0]}
-                              </p>
-                            </div>
-                            <svg className="w-5 h-5 text-gray-400 group-hover:text-blue-600 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0l-7 7m7-7v6"></path>
-                            </svg>
+                            )}
                           </a>
                         ))
                       ) : (
@@ -140,8 +140,6 @@ const DailyLinkPage = () => {
               )}
             </div>
           )}
-
-       
         </div>
       </div>
     </>
