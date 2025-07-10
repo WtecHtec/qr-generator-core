@@ -1,24 +1,50 @@
+// src/App.tsx
 "use client"
+
 import { useState, useEffect } from 'react';
+
 import { SettingsPanel } from './components/SettingsPanel';
 import { PreviewCanvas } from './components/PreviewCanvas';
 import { QRGeneratorTest } from './test/QRGeneratorTest';
 import { useQRGenerator } from './hooks/useQRGenerator';
 import { SEOHead } from './components/SEOHead';
+
 import './App.css';
 
 function App() {
   const qrGenerator = useQRGenerator();
   const [showTest, setShowTest] = useState(false);
+  const [dailyLink, setDailyLink] = useState('');
+
+  // Simulate fetching daily external link
+  useEffect(() => {
+    const fetchExternalLink = async () => {
+      // In a real application, you would fetch this from an API
+      // For demonstration, we'll use a placeholder and update it daily
+      const today = new Date();
+      const dateString = today.toISOString().slice(0, 10); // YYYY-MM-DD
+      const link = `/moretools?_t=${dateString}`; // Example daily changing link
+      setDailyLink(link);
+    };
+
+    fetchExternalLink();
+
+    // Set up an interval to refresh the link daily (e.g., at midnight)
+    // This is a simplified approach. For production, consider server-side updates or more robust client-side logic.
+    const now = new Date();
+    const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0);
+    const timeUntilMidnight = midnight.getTime() - now.getTime();
+
+    const timeoutId = setTimeout(() => {
+      fetchExternalLink(); // Fetch immediately at midnight
+      setInterval(fetchExternalLink, 24 * 60 * 60 * 1000); // Then every 24 hours
+    }, timeUntilMidnight);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
 
   // 初始生成二维码
-  // useEffect(() => {
-  //   qrGenerator.generateQR();
-  // }, []);
-
-  // 当配置变化时重新生成二维码
-   // 初始生成二维码
-   useEffect(() => {
+  useEffect(() => {
     qrGenerator.generateQR();
   }, [qrGenerator.generateQR]); // 添加依赖
 
@@ -26,7 +52,6 @@ function App() {
   useEffect(() => {
     qrGenerator.generateQR();
   }, [qrGenerator.config.qr, qrGenerator.generateQR]); // 添加依赖
-
 
   // 动态更新页面标题
   useEffect(() => {
@@ -43,8 +68,7 @@ function App() {
       <SEOHead />
       <div className="min-h-screen bg-gray-100">
         {/* 顶部导航 */}
-       {/* 顶部导航 */}
-       <header className="bg-white shadow-sm border-b" role="banner">
+        <header className="bg-white shadow-sm border-b" role="banner">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               <h1 className="text-xl font-semibold text-gray-900">
@@ -72,19 +96,35 @@ function App() {
                       rel="noopener noreferrer"
                       className="flex items-center px-3 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
                       aria-label="查看npm包"
-                      >
+                    >
                       <svg className="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M0 7v10h6.5v1.5h3V17H24V7H0zm6.5 6H5v-3h1.5v3zm6.5 0h-1.5v-3H10v3h-1.5V9.5H8.5v3.5H7V8h6v5zm6.5-3v3H17v-3h-1.5v3H14V8h6v2h-1.5z"/>
+                        <path d="M0 7v10h6.5v1.5h3V17H24V7H0zm6.5 6H5v-3h1.5v3zm6.5 0h-1.5v-3H10v3h-1.5V9.5H8.5v3.5H7V8h6v5zm6.5-3v3H17v-3h-1.5v3H14V8h6v2h-1.5z" />
                       </svg>
                       npm
                     </a>
+                    {/* Daily External Link Entrance */}
+                    {dailyLink && (
+                      <a
+                        href={dailyLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center px-3 py-2 text-sm text-blue-600 hover:text-blue-800 transition-colors font-medium border border-blue-300 rounded-md"
+                        aria-label="每日精选外链"
+                      >
+                        <svg className="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                          <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                        </svg>
+                        更多工具
+                      </a>
+                    )}
                   </div>
                   <div className="border-l border-gray-300 h-6"></div>
                   <button
                     onClick={() => setShowTest(!showTest)}
                     className={`px-4 py-2 rounded-lg transition-colors ${
-                      showTest 
-                        ? 'bg-red-600 text-white hover:bg-red-700' 
+                      showTest
+                        ? 'bg-red-600 text-white hover:bg-red-700'
                         : 'bg-green-600 text-white hover:bg-green-700'
                     }`}
                     aria-label={showTest ? '关闭测试模式' : '开启测试模式'}
@@ -170,7 +210,8 @@ function App() {
               </div>
             </div>
             <div className="border-t pt-8 mt-8 text-center text-gray-500 text-sm">
-              <p>&copy; 2024 QR Generator. 保留所有权利。</p>
+              <p>&copy; 2025 QR Generator. 保留所有权利。</p>
+              <p>桂ICP备2025051198号</p>
             </div>
           </div>
         </footer>

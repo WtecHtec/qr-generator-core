@@ -14,7 +14,6 @@
     "next:lint": "next lint",
     "pages:build": "npx @cloudflare/next-on-pages",
     "pages:deploy": "pnpm run next:build && pnpm run pages:build && wrangler pages deploy .vercel/output/static --project-name=qr-generator-core"
-  
   },
   "dependencies": {
     "@cloudflare/next-on-pages": "^1.13.12",
@@ -27,6 +26,7 @@
     "qrcode": "^1.5.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-icons": "^5.5.0",
     "tailwindcss": "^4.1.8"
   },
   "devDependencies": {
