@@ -14,6 +14,13 @@
         "url": "https://excalidraw.com/",
         "icon": "FaHotjar",
         "reason": "极简操作"
+      },
+      {
+        "name": "视频下载器",
+        "url": "https://www.bestvideow.com/",
+        "icon": "FaHotjar",
+        "reason": "视频下载器: 支持哔哩哔哩、抖音"
+      
       }
       
     ]
